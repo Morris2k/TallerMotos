@@ -1,0 +1,6 @@
+@TallerMotos_HostAddress = http://localhost:5174
+
+GET {{TallerMotos_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
