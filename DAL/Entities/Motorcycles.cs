@@ -23,5 +23,12 @@ namespace TallerMotos.DAL.Entities
         [Range(0, 99999999, ErrorMessage = "El {0} tiene un valor máximo de {1}")]
         [Required(ErrorMessage = "El {0} es obligatorio")]
         public int Milieage { get; set; }
+
+        // Relación con Client
+        public int ClientId { get; set; } // Clave foránea que referencia al cliente
+        public virtual Client Client { get; set; } // Propiedad de navegación
+
+        // Relación con Repair
+        public virtual ICollection<Repair> Repairs { get; set; } = new List<Repair>();
     }
 }

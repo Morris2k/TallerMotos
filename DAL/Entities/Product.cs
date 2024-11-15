@@ -23,5 +23,11 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "El {0} es obligatorio")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El {0} debe ser mayor que cero")]
         public decimal Price { get; set; } // Precio del producto
+
+        // Relación con Buy
+        public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>();
+
+        // Relación muchos a muchos con Bill
+        public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
     }
 }
