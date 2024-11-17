@@ -12,6 +12,6 @@ namespace TallerMotos.Domain.Interfaces
 
         Task<Buy> EditBuyAsync(Buy buy);
 
-        Task<Buy> DeleteBuyrAsync(Guid id);
+        Task<Buy> DeleteBuyAsync(Guid id);
     }
 }
