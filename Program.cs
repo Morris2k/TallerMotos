@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TallerMotos.DAL;
+using TallerMotos.Domain.Interfaces;
+using TallerMotos.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddControllers();
 
 //Esta es la línea de code que necesito para configurar la conexión a la BD
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// contenedor de dependencias
+builder.Services.AddScoped<iMotorcyclesServices, MotorcyclesServices>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
