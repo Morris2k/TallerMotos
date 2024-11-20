@@ -31,10 +31,10 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "Los {0} son obligatorios")]
         public bool Papers { get; set; } // True si deja los papeles, False si no
 
-        // Relación con Motorcycles
+        /* // Relación con Motorcycles
         public virtual ICollection<Motorcycles> Motorcycles { get; set; } = new List<Motorcycles>();
 
         // Relación con Buy
-        public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>();
+        public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>(); */
     }
 }

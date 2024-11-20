@@ -24,10 +24,10 @@ namespace TallerMotos.DAL.Entities
         [Range(0.01, double.MaxValue, ErrorMessage = "El {0} debe ser mayor que cero")]
         public decimal Price { get; set; } // Precio del producto
 
-        // Relación con Buy
+        /* // Relación con Buy
         public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>();
 
         // Relación muchos a muchos con Bill
-        public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
+        public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>(); */
     }
 }

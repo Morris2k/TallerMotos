@@ -24,11 +24,11 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "El {0} es obligatorio")]
         public int Milieage { get; set; }
 
-        // Relación con Client
+        /* // Relación con Client
         public int ClientId { get; set; } // Clave foránea que referencia al cliente
         public virtual Client Client { get; set; } // Propiedad de navegación
 
         // Relación con Repair
-        public virtual ICollection<Repair> Repairs { get; set; } = new List<Repair>();
+        public virtual ICollection<Repair> Repairs { get; set; } = new List<Repair>(); */
     }
 }

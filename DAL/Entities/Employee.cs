@@ -23,10 +23,10 @@ namespace TallerMotos.DAL.Entities
         [MaxLength(15, ErrorMessage = "El {0} tiene un máximo de {1} caracteres")]
         public string Phone { get; set; }
 
-        // Relación uno a muchos con ServiceOrder
+        /* // Relación uno a muchos con ServiceOrder
         public virtual ICollection<ServiceOrder> ServiceOrders { get; set; } = new List<ServiceOrder>();
 
         // Propiedad de clave foránea hacia User
-        public Guid UserId { get; set; }  // Este es el FK
+        public Guid UserId { get; set; }  // Este es el FK */
     }
 }

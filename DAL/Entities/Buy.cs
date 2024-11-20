@@ -14,12 +14,12 @@ namespace TallerMotos.DAL.Entities
         [Required]
         public DateTime PurchaseDate { get; set; } = DateTime.Now; // Fecha asignada automáticamente
 
-        // Relación con Client
+        /* // Relación con Client
         public int ClientId { get; set; } // Clave foránea
         public virtual Client Client { get; set; } // Propiedad de navegación
 
         // Relación con Product
         public Guid ProductId { get; set; } // Clave foránea
-        public virtual Product Product { get; set; } // Propiedad de navegación
+        public virtual Product Product { get; set; } // Propiedad de navegación */
     }
 }
