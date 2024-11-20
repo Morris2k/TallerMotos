@@ -18,6 +18,7 @@ builder.Services.AddScoped<iBillServices, BillServices>();
 builder.Services.AddScoped<iBuyServices, BuyServices>();
 builder.Services.AddScoped<iClientServices, ClientServices>();
 builder.Services.AddScoped<iEmployeeServices, EmployeeServices>();
+builder.Services.AddScoped<iProductServices, ProductServices>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
