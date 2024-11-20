@@ -20,7 +20,7 @@ namespace TallerMotos.Domain.Services
                 buy.Id = Guid.NewGuid();
                 buy.CreatedDate = DateTime.Now;
                 _context.Buys.Add(buy); // permite crear el objeto en mi base de datos
-                await _context.SaveChangesAsync(); // guarda el bills en la tabla
+                await _context.SaveChangesAsync(); // guarda el buy en la tabla
                 return buy;
 
             }
@@ -44,7 +44,7 @@ namespace TallerMotos.Domain.Services
                     return null;
                 }
 
-                _context.Buys.Remove(buy); // Creacion del query "Delete from Bills"
+                _context.Buys.Remove(buy); // Creacion del query "Delete from byus"
                 await _context.SaveChangesAsync(); // ejecucion del Query
 
                 return buy;

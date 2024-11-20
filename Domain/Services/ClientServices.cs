@@ -20,7 +20,7 @@ namespace TallerMotos.Domain.Services
                 client.Id = Guid.NewGuid();
                 client.CreatedDate = DateTime.Now;
                 _context.Clients.Add(client); // permite crear el objeto en mi base de datos
-                await _context.SaveChangesAsync(); // guarda el bills en la tabla
+                await _context.SaveChangesAsync(); // guarda el client en la tabla
                 return client;
 
             }
@@ -44,7 +44,7 @@ namespace TallerMotos.Domain.Services
                     return null;
                 }
 
-                _context.Clients.Remove(client); // Creacion del query "Delete from Bills"
+                _context.Clients.Remove(client); // Creacion del query "Delete from client"
                 await _context.SaveChangesAsync(); // ejecucion del Query
 
                 return client;
