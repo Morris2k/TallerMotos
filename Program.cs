@@ -16,6 +16,7 @@ builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(b
 builder.Services.AddScoped<iMotorcyclesServices, MotorcyclesServices>();
 builder.Services.AddScoped<iBillServices, BillServices>();
 builder.Services.AddScoped<iBuyServices, BuyServices>();
+builder.Services.AddScoped<iClientServices, ClientServices>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
