@@ -5,23 +5,23 @@ using TallerMotos.Domain.Interfaces;
 
 namespace TallerMotos.Domain.Services
 {
-    public class MotorcyclesServices : iMotorcyclesServices
+    public class ServiceTypeServices : iServiceTypeServices
     {
         private readonly DataBaseContext _context;
 
-        public MotorcyclesServices(DataBaseContext context)
+        public ServiceTypeServices(DataBaseContext context)
         {
             _context = context;
         }
-        public async Task<Motorcycles> CreateMotorcyclesAsync(Motorcycles motorcycles)
+        public async Task<ServiceType> CreateServiceTypeAsync(ServiceType serviceType)
         {
             try
             {
-                motorcycles.Id = Guid.NewGuid();
-                motorcycles.CreatedDate = DateTime.Now;
-                _context.Motorcycles.Add(motorcycles); // permite crear el objeto en mi base de datos
-                await _context.SaveChangesAsync(); // guarda el motorcycles en la tabla
-                return motorcycles;
+                serviceType.Id = Guid.NewGuid();
+                serviceType.CreatedDate = DateTime.Now;
+                _context.ServiceTypes.Add(serviceType); // permite crear el objeto en mi base de datos
+                await _context.SaveChangesAsync(); // guarda el servicetype en la tabla
+                return serviceType;
 
             }
             catch (DbUpdateException dbUpdateException)
@@ -32,22 +32,22 @@ namespace TallerMotos.Domain.Services
 
         }
 
-        public async Task<Motorcycles> DeleteMotorcyclesAsync(Guid id)
+        public async Task<ServiceType> DeleteServiceTypeAsync(Guid id)
         {
 
             try
             {
-                var motorcycles = await GetMotorcyclesByIdAsync(id);
+                var serviceType = await GetServiceTypeByIdAsync(id);
 
-                if (motorcycles == null)
+                if (serviceType == null)
                 {
                     return null;
                 }
 
-                _context.Motorcycles.Remove(motorcycles); // Creacion del query "Delete from motorcycles"
+                _context.ServiceTypes.Remove(serviceType); // Creacion del query "Delete from servicestype"
                 await _context.SaveChangesAsync(); // ejecucion del Query
 
-                return motorcycles;
+                return serviceType;
             }
             catch (DbUpdateException dbUpdateException)
             {
@@ -56,14 +56,14 @@ namespace TallerMotos.Domain.Services
             }
         }
 
-        public async Task<Motorcycles> EditMotorcyclesAsync(Motorcycles motorcycles)
+        public async Task<ServiceType> EditServiceTypeAsync(ServiceType serviceType)
         {
             try
             {
-                motorcycles.ModifiedDate = DateTime.Now;
-                _context.Motorcycles.Add(motorcycles);   //virtualizo el objeto
+                serviceType.ModifiedDate = DateTime.Now;
+                _context.ServiceTypes.Add(serviceType);   //virtualizo el objeto
                 await _context.SaveChangesAsync();
-                return motorcycles;
+                return serviceType;
             }
             catch (DbUpdateException dbUpdateException)
             {
@@ -72,14 +72,14 @@ namespace TallerMotos.Domain.Services
             }
         }
 
-        public async Task<IEnumerable<Motorcycles>> GetMotorcyclesAsync()
+        public async Task<IEnumerable<ServiceType>> GetServiceTypeAsync()
         {
 
             try
             {
-                var motorcycless = await _context.Motorcycles.ToListAsync();
+                var serviceTypes = await _context.ServiceTypes.ToListAsync();
 
-                return motorcycless;
+                return serviceTypes;
             }
             catch (DbUpdateException dbUpdateException)
             {
@@ -88,14 +88,14 @@ namespace TallerMotos.Domain.Services
             }
         }
 
-        public async Task<Motorcycles> GetMotorcyclesByIdAsync(Guid id)
+        public async Task<ServiceType> GetServiceTypeByIdAsync(Guid id)
         {
 
             try
             {
-                var motorcycless = await _context.Motorcycles.FirstOrDefaultAsync(x => x.Id == id);
+                var serviceTypes = await _context.ServiceTypes.FirstOrDefaultAsync(x => x.Id == id);
 
-                return motorcycless;
+                return serviceTypes;
 
             }
             catch (DbUpdateException dbUpdateException)
@@ -106,4 +106,3 @@ namespace TallerMotos.Domain.Services
         }
     }
 }
-

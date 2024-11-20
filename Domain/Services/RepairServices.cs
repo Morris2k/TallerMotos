@@ -20,7 +20,7 @@ namespace TallerMotos.Domain.Services
                 repair.Id = Guid.NewGuid();
                 repair.CreatedDate = DateTime.Now;
                 _context.Repairs.Add(repair); // permite crear el objeto en mi base de datos
-                await _context.SaveChangesAsync(); // guarda el bills en la tabla
+                await _context.SaveChangesAsync(); // guarda el repair en la tabla
                 return repair;
 
             }
