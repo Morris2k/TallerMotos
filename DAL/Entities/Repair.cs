@@ -23,12 +23,12 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "La {0} es obligatoria")]
         public DateTime RepairDate { get; set; } // Fecha en que se realizó la reparación
 
-        // Relación con Motorcycles
+        /* // Relación con Motorcycles
         public Guid MotorcycleId { get; set; } // Clave foránea
         public virtual Motorcycles Motorcycle { get; set; } // Propiedad de navegación
 
         // Relación con ServiceOrder
         public Guid ServiceOrderId { get; set; } // Clave foránea
-        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación
+        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación */
     }
 }

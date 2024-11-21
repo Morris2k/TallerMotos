@@ -22,7 +22,7 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "La {0} es obligatoria")]
         public DateTime ExitDate { get; set; } // Fecha en que se retiró la moto del taller
 
-        // Relación con Repair
+        /* // Relación con Repair
         public virtual ICollection<Repair> Repairs { get; set; } = new List<Repair>();
 
         // Relación muchos a muchos con ServiceType
@@ -33,6 +33,6 @@ namespace TallerMotos.DAL.Entities
 
         // Relación con Empleado: Cada orden de servicio tiene un empleado responsable
         public Guid EmployeeId { get; set; }  // Clave foránea a Empleado
-        public virtual Employee Employee { get; set; } // Propiedad de navegación
+        public virtual Employee Employee { get; set; } // Propiedad de navegación */
     }
 }
