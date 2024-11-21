@@ -31,10 +31,19 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "Los {0} son obligatorios")]
         public bool Papers { get; set; } // True si deja los papeles, False si no
 
+        //Así es como relaciono 2 tablas con EF Core: buys
+        [Display(Name = "compras")]
+        public ICollection<Buy>? Buys { get; set; }
+
+        //Así es como relaciono 2 tablas con EF Core: Motorcycles
+        [Display(Name = "Motorcycles")]
+        public ICollection<Motorcycles>? Motorcycless { get; set; }
+
+        /*
         // Relación con Motorcycles
         public virtual ICollection<Motorcycles> Motorcycles { get; set; } = new List<Motorcycles>();
 
         // Relación con Buy
-        public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>();
+        public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>();*/
     }
 }

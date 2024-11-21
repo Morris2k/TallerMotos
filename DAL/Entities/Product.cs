@@ -22,12 +22,28 @@ namespace TallerMotos.DAL.Entities
         [Display(Name = "Precio")]
         [Required(ErrorMessage = "El {0} es obligatorio")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El {0} debe ser mayor que cero")]
-        public decimal Price { get; set; } // Precio del producto
+        public double Price { get; set; } // Precio del producto
 
+        //Así es como relaciono 2 tablas con EF Core: Buy
+        [Display(Name = "Buy")]
+        public Buy? Buy { get; set; }
+
+        //FK
+        [Display(Name = "Id Buy")]
+        public Guid BuyId { get; set; }
+
+        //Así es como relaciono 2 tablas con EF Core: ServiceType
+        [Display(Name = "ServiceType")]
+        public ServiceType? ServiceType { get; set; }
+
+        //FK
+        [Display(Name = "Id ServiceType")]
+        public Guid ServiceTypeId { get; set; }
+        /*
         // Relación con Buy
         public virtual ICollection<Buy> Buys { get; set; } = new List<Buy>();
 
         // Relación muchos a muchos con Bill
-        public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
+        public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();*/
     }
 }

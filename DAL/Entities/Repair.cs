@@ -17,18 +17,46 @@ namespace TallerMotos.DAL.Entities
         [Display(Name = "Costo")]
         [Required(ErrorMessage = "El {0} es obligatorio")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El {0} debe ser mayor que cero")]
-        public decimal Cost { get; set; } // Costo de la reparación
+        public double Cost { get; set; } // Costo de la reparación
 
         [Display(Name = "Fecha de reparación")]
         [Required(ErrorMessage = "La {0} es obligatoria")]
         public DateTime RepairDate { get; set; } // Fecha en que se realizó la reparación
 
+        //Así es como relaciono 2 tablas con EF Core: motorcycle
+
+        [Display(Name = "Motorcycle")]
+        public Motorcycles? Motorcycle { get; set; }
+
+        //FK
+        [Display(Name = "Id Motorcycle")]
+        public Guid MotorcyclesId { get; set; }
+
+        //Así es como relaciono 2 tablas con EF Core: Buy
+        [Display(Name = "Buy")]
+        public Buy? Buy { get; set; }
+
+        //FK
+        [Display(Name = "Id Buy")]
+        public Guid BuyId { get; set; }
+
+        //Así es como relaciono 2 tablas con EF Core: ServiceType
+        [Display(Name = "ServiceType")]
+        public ServiceType? ServiceType { get; set; }
+
+        //FK
+        [Display(Name = "Id ServiceType")]
+        public Guid ServiceTypeId { get; set; }
+
+
+        //Así es como relaciono 2 tablas con EF Core: buy
+        /*
         // Relación con Motorcycles
         public Guid MotorcycleId { get; set; } // Clave foránea
         public virtual Motorcycles Motorcycle { get; set; } // Propiedad de navegación
 
         // Relación con ServiceOrder
         public Guid ServiceOrderId { get; set; } // Clave foránea
-        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación
+        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación*/
     }
 }
