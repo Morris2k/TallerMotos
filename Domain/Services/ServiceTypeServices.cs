@@ -61,7 +61,7 @@ namespace TallerMotos.Domain.Services
             try
             {
                 serviceType.ModifiedDate = DateTime.Now;
-                _context.ServiceTypes.Add(serviceType);   //virtualizo el objeto
+                _context.ServiceTypes.Update(serviceType);   //virtualizo el objeto
                 await _context.SaveChangesAsync();
                 return serviceType;
             }

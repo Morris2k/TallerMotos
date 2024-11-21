@@ -61,7 +61,7 @@ namespace TallerMotos.Domain.Services
             try
             {
                 motorcycles.ModifiedDate = DateTime.Now;
-                _context.Motorcycles.Add(motorcycles);   //virtualizo el objeto
+                _context.Motorcycles.Update(motorcycles);   //virtualizo el objeto
                 await _context.SaveChangesAsync();
                 return motorcycles;
             }
