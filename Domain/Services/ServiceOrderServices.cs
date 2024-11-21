@@ -61,7 +61,7 @@ namespace TallerMotos.Domain.Services
             try
             {
                 serviceOrder.ModifiedDate = DateTime.Now;
-                _context.ServiceOrders.Add(serviceOrder);   //virtualizo el objeto
+                _context.ServiceOrders.Update(serviceOrder);   //virtualizo el objeto
                 await _context.SaveChangesAsync();
                 return serviceOrder;
             }

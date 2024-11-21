@@ -61,7 +61,7 @@ namespace TallerMotos.Domain.Services
             try
             {
                 employee.ModifiedDate = DateTime.Now;
-                _context.Employees.Add(employee);   //virtualizo el objeto
+                _context.Employees.Update(employee);   //virtualizo el objeto
                 await _context.SaveChangesAsync();
                 return employee;
             }
