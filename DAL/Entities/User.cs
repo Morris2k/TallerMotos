@@ -27,13 +27,8 @@ namespace TallerMotos.DAL.Entities
         //Así es como relaciono 2 tablas con EF Core: Employee
         [Display(Name = "Employee")]
         public Employee? Employee { get; set; }
-
         //FK
         [Display(Name = "Id Employee")]
         public Guid EmployeeId { get; set; }
-
-        /*
-        // Propiedad de navegación hacia Employee
-        public Employee Employee { get; set; }*/
     }
 }

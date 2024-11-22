@@ -11,7 +11,24 @@ namespace TallerMotos.DAL
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Bill>()
+                .HasOne(b => b.ServiceOrder)   // Bill tiene una ServiceOrder
+                .WithOne(so => so.Bill)        // ServiceOrder tiene una Bill
+                .HasForeignKey<ServiceOrder>(so => so.BillId); // Configura la clave foránea en ServiceOrder
+            
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.ServiceOrder)    // Un empleado tiene un ServiceOrder
+                .WithOne(so => so.Employee)     // Un ServiceOrder tiene un empleado
+                .HasForeignKey<ServiceOrder>(so => so.EmployeeId); // Define la clave foránea en ServiceOrder
 
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.User)         // Employee tiene un User
+                .WithOne(u => u.Employee)    // User tiene un Employee
+                .HasForeignKey<Employee>(e => e.UserId); // Configura la clave foránea en Employee
+        }
+        
 
         #region DbSets
 

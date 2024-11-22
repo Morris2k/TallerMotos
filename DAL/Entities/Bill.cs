@@ -18,20 +18,18 @@ namespace TallerMotos.DAL.Entities
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que cero")]
         public int Quantity { get; set; }
 
-        //Así es como relaciono 2 tablas con EF Core: Buy
-        [Display(Name = "Buy")]
-        public Buy? Buy { get; set; }
-
+        //Así es como relaciono 2 tablas con EF Core: ServiceOrder
+        [Display(Name = "ServiceOrder")]
+        public ServiceOrder? ServiceOrder { get; set; }
         //FK
-        [Display(Name = "Id Buy")]
-        public Guid BuyId { get; set; }
-        /*
+        [Display(Name = "Id ServiceOrder")]
+        public Guid ServiceOrderId { get; set; }
 
-        // Relación muchos a muchos con Product
-        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-
-        // Clave foránea a ServiceOrder (relación uno a uno)
-        public Guid ServiceOrderId { get; set; }  // Clave foránea a ServiceOrder
-        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación*/
+        //Así es como relaciono 2 tablas con EF Core: Product
+        [Display(Name = "Product")]
+        public Product? Product { get; set; }
+        //FK
+        [Display(Name = "Id Product")]
+        public Guid ProductId { get; set; }
     }
 }

@@ -27,36 +27,15 @@ namespace TallerMotos.DAL.Entities
 
         [Display(Name = "Motorcycle")]
         public Motorcycles? Motorcycle { get; set; }
-
         //FK
         [Display(Name = "Id Motorcycle")]
         public Guid MotorcyclesId { get; set; }
 
-        //Así es como relaciono 2 tablas con EF Core: Buy
-        [Display(Name = "Buy")]
-        public Buy? Buy { get; set; }
-
+        //Así es como relaciono 2 tablas con EF Core: ServiceOrder
+        [Display(Name = "ServiceOrder")]
+        public ServiceOrder? ServiceOrder { get; set; }
         //FK
-        [Display(Name = "Id Buy")]
-        public Guid BuyId { get; set; }
-
-        //Así es como relaciono 2 tablas con EF Core: ServiceType
-        [Display(Name = "ServiceType")]
-        public ServiceType? ServiceType { get; set; }
-
-        //FK
-        [Display(Name = "Id ServiceType")]
-        public Guid ServiceTypeId { get; set; }
-
-
-        //Así es como relaciono 2 tablas con EF Core: buy
-        /*
-        // Relación con Motorcycles
-        public Guid MotorcycleId { get; set; } // Clave foránea
-        public virtual Motorcycles Motorcycle { get; set; } // Propiedad de navegación
-
-        // Relación con ServiceOrder
-        public Guid ServiceOrderId { get; set; } // Clave foránea
-        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación*/
+        [Display(Name = "Id ServiceOrder")]
+        public Guid ServiceOrderId { get; set; }
     }
 }

@@ -24,23 +24,15 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "El {0} es obligatorio")]
         public int Milieage { get; set; }
 
-        //Así es como relaciono 2 tablas con EF Core: Repair
-        [Display(Name = "Reparaciones")]
-        public ICollection<Repair>? Repairs { get; set; }
-
         //Así es como relaciono 2 tablas con EF Core: Client
         [Display(Name = "Client")]
         public Client? Clients { get; set; }
-
         //FK
         [Display(Name = "Id Client")]
         public Guid ClientId { get; set; }
-        /*
-        // Relación con Client
-        public int ClientId { get; set; } // Clave foránea que referencia al cliente
-        public virtual Client Client { get; set; } // Propiedad de navegación
 
-        // Relación con Repair
-        public virtual ICollection<Repair> Repairs { get; set; } = new List<Repair>();*/
+        //Así es como relaciono 2 tablas con EF Core: Repair
+        [Display(Name = "Reparaciones")]
+        public ICollection<Repair>? Repairs { get; set; }
     }
 }
