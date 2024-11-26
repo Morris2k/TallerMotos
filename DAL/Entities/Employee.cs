@@ -33,5 +33,6 @@ namespace TallerMotos.DAL.Entities
         //Así es como relaciono 2 tablas con EF Core: Repairs
         [Display(Name = "ServiceOrders")]
         public ICollection<ServiceOrder>? ServiceOrders { get; set; }
+
     }
 }

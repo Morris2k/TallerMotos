@@ -27,5 +27,6 @@ namespace TallerMotos.DAL.Entities
         //FK
         [Display(Name = "Id Client")]
         public Guid ClientId { get; set; }
+
     }
 }

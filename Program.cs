@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//Esta es la línea de code que necesito para configurar la conexión a la BD
+//Esta es la lÃ­nea de code que necesito para configurar la conexiÃ³n a la BD
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // contenedor de dependencias
@@ -22,7 +22,9 @@ builder.Services.AddScoped<iProductServices, ProductServices>();
 builder.Services.AddScoped<iRepairServices, RepairServices>();
 builder.Services.AddScoped<iServiceOrderServices, ServiceOrderServices>();
 builder.Services.AddScoped<iUserServices, UserServices>();
+
 builder.Services.AddTransient<SeederDB>();//Ciclo de vida del Seeder
+builder.Services.AddScoped<iServiceTypeServices, ServiceTypeServices>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,7 +34,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
-//Configuración alimentador DB
+//ConfiguraciÃ³n alimentador DB
 SeederData();
 
 void SeederData()

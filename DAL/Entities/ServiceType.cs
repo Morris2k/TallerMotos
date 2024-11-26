@@ -20,6 +20,7 @@ namespace TallerMotos.DAL.Entities
         //FK
         [Display(Name = "Id ServiceOrder")]
         public Guid ServiceOrderId { get; set; }
+
     }
 }
 

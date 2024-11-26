@@ -31,5 +31,6 @@ namespace TallerMotos.DAL.Entities
         //Así es como relaciono 2 tablas con EF Core: Bill-Prodcuts
         [Display(Name = "Bills")]
         public ICollection<Bill>? Bills { get; set; }
+
     }
 }
