@@ -11,7 +11,7 @@ namespace TallerMotos.DAL.Entities
 
         [Display(Name = "Total")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public double Total { get; private set; } // Campo calculado, no debe ser asignado directamente
+        public double Total { get; set; } // Campo calculado, no debe ser asignado directamente, le quitaré el private para hacer pruebas...DanielHiugita
 
         [Display(Name = "Cantidad de productos")]
         [Required(ErrorMessage = "La {0} es obligatoria")]

@@ -18,15 +18,27 @@ namespace TallerMotos.DAL
                 .WithOne(so => so.Bill)        // ServiceOrder tiene una Bill
                 .HasForeignKey<ServiceOrder>(so => so.BillId); // Configura la clave foránea en ServiceOrder
             
-            modelBuilder.Entity<Employee>()
-                .HasOne(e => e.ServiceOrder)    // Un empleado tiene un ServiceOrder
-                .WithOne(so => so.Employee)     // Un ServiceOrder tiene un empleado
-                .HasForeignKey<ServiceOrder>(so => so.EmployeeId); // Define la clave foránea en ServiceOrder
+           
 
             modelBuilder.Entity<Employee>()
                 .HasOne(e => e.User)         // Employee tiene un User
                 .WithOne(u => u.Employee)    // User tiene un Employee
                 .HasForeignKey<Employee>(e => e.UserId); // Configura la clave foránea en Employee
+
+            modelBuilder.Entity<User>()
+                .HasOne(e => e.Employee) // User tiene un Employee 
+                .WithOne(u => u.User)    // Employee tiene un User
+                .HasForeignKey<User>(e => e.EmployeeId); // Configura la clave foránea en User
+
+            modelBuilder.Entity<ServiceOrder>()
+                .HasOne(s => s.Bill)
+                .WithOne(b => b.ServiceOrder)
+                .HasForeignKey<Bill>(b => b.ServiceOrderId);
+
+            modelBuilder.Entity<Bill>()
+                .HasOne(b => b.Product)
+                .WithMany()
+                .HasForeignKey(b => b.ProductId);
         }
         
 

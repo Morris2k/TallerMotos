@@ -30,11 +30,8 @@ namespace TallerMotos.DAL.Entities
         [Display(Name = "Id User")]
         public Guid UserId { get; set; }
 
-        //Así es como relaciono 2 tablas con EF Core: ServiceOrder
-        [Display(Name = "ServiceOrder")]
-        public ServiceOrder? ServiceOrder { get; set; }
-        //FK
-        [Display(Name = "Id ServiceOrder")]
-        public Guid ServiceOrderId { get; set; }
+        //Así es como relaciono 2 tablas con EF Core: Repairs
+        [Display(Name = "ServiceOrders")]
+        public ICollection<ServiceOrder>? ServiceOrders { get; set; }
     }
 }
