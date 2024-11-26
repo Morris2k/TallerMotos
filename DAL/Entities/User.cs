@@ -24,7 +24,11 @@ namespace TallerMotos.DAL.Entities
         [MinLength(6, ErrorMessage = "La {0} debe tener al menos {1} caracteres")]
         public string Password { get; set; } // Contraseña del usuario (asegúrate de encriptarla)
 
-        /* // Propiedad de navegación hacia Employee
-        public Employee Employee { get; set; } */
+        //Así es como relaciono 2 tablas con EF Core: Employee
+        [Display(Name = "Employee")]
+        public Employee? Employee { get; set; }
+        //FK
+        [Display(Name = "Id Employee")]
+        public Guid EmployeeId { get; set; }
     }
 }

@@ -22,17 +22,27 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "La {0} es obligatoria")]
         public DateTime ExitDate { get; set; } // Fecha en que se retiró la moto del taller
 
-        /* // Relación con Repair
-        public virtual ICollection<Repair> Repairs { get; set; } = new List<Repair>();
+        //Así es como relaciono 2 tablas con EF Core: Bill
+        [Display(Name = "Bill")]
+        public Bill? Bill { get; set; }
+        //FK
+        [Display(Name = "Id Bill")]
+        public Guid BillId { get; set; }
 
-        // Relación muchos a muchos con ServiceType
-        public virtual ICollection<ServiceType> ServiceTypes { get; set; } = new List<ServiceType>();
+        //Así es como relaciono 2 tablas con EF Core: Employee
+        [Display(Name = "Employee")]
+        public Employee? Employee { get; set; }
+        //FK
+        [Display(Name = "Id Employee")]
+        public Guid EmployeeId { get; set; }
 
-        // Relación uno a uno con Bill
-        public virtual Bill Bill { get; set; }  // Propiedad de navegación
+        //Así es como relaciono 2 tablas con EF Core: ServiceTypes
+        [Display(Name = "ServiceTypes")]
+        public ICollection<ServiceType>? ServiceTypes { get; set; }
 
-        // Relación con Empleado: Cada orden de servicio tiene un empleado responsable
-        public Guid EmployeeId { get; set; }  // Clave foránea a Empleado
-        public virtual Employee Employee { get; set; } // Propiedad de navegación */
+        //Así es como relaciono 2 tablas con EF Core: Repairs
+        [Display(Name = "Repairs")]
+        public ICollection<Repair>? Repairs { get; set; }
+
     }
 }

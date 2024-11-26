@@ -11,20 +11,25 @@ namespace TallerMotos.DAL.Entities
 
         [Display(Name = "Total")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public decimal Total { get; private set; } // Campo calculado, no debe ser asignado directamente
+        public double Total { get; set; } // Campo calculado, no debe ser asignado directamente, le quitaré el private para hacer pruebas...DanielHiugita
 
         [Display(Name = "Cantidad de productos")]
         [Required(ErrorMessage = "La {0} es obligatoria")]
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que cero")]
         public int Quantity { get; set; }
 
+        //Así es como relaciono 2 tablas con EF Core: ServiceOrder
+        [Display(Name = "ServiceOrder")]
+        public ServiceOrder? ServiceOrder { get; set; }
+        //FK
+        [Display(Name = "Id ServiceOrder")]
+        public Guid ServiceOrderId { get; set; }
 
-
-        /* // Relación muchos a muchos con Product
-        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-
-        // Clave foránea a ServiceOrder (relación uno a uno)
-        public Guid ServiceOrderId { get; set; }  // Clave foránea a ServiceOrder
-        public virtual ServiceOrder ServiceOrder { get; set; } // Propiedad de navegación */
+        //Así es como relaciono 2 tablas con EF Core: Product
+        [Display(Name = "Product")]
+        public Product? Product { get; set; }
+        //FK
+        [Display(Name = "Id Product")]
+        public Guid ProductId { get; set; }
     }
 }

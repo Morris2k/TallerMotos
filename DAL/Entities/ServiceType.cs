@@ -14,8 +14,13 @@ namespace TallerMotos.DAL.Entities
         [MaxLength(100, ErrorMessage = "El {0} tiene un máximo de {1} caracteres")]
         public string Name { get; set; } // Nombre del tipo de servicio
 
-        /* // Relación muchos a muchos con ServiceOrder
-        public virtual ICollection<ServiceOrder> ServiceOrders { get; set; } = new List<ServiceOrder>(); */
+        //Así es como relaciono 2 tablas con EF Core: ServiceOrder
+        [Display(Name = "ServiceOrder")]
+        public ServiceOrder? ServiceOrder { get; set; }
+        //FK
+        [Display(Name = "Id ServiceOrder")]
+        public Guid ServiceOrderId { get; set; }
+
     }
 }
 

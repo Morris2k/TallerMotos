@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//Esta es la lÌnea de code que necesito para configurar la conexiÛn a la BD
+//Esta es la l√≠nea de code que necesito para configurar la conexi√≥n a la BD
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // contenedor de dependencias
@@ -22,6 +22,8 @@ builder.Services.AddScoped<iProductServices, ProductServices>();
 builder.Services.AddScoped<iRepairServices, RepairServices>();
 builder.Services.AddScoped<iServiceOrderServices, ServiceOrderServices>();
 builder.Services.AddScoped<iUserServices, UserServices>();
+
+builder.Services.AddTransient<SeederDB>();//Ciclo de vida del Seeder
 builder.Services.AddScoped<iServiceTypeServices, ServiceTypeServices>();
 
 
@@ -30,6 +32,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+
+//Configuraci√≥n alimentador DB
+SeederData();
+
+void SeederData()
+{
+    IServiceScopeFactory? scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+    
+    using (IServiceScope? scope = scopeFactory.CreateScope())
+    {
+        SeederDB? service = scope.ServiceProvider.GetService<SeederDB>();
+        service.SeederAsync().Wait();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
