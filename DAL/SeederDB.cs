@@ -116,16 +116,18 @@ namespace TallerMotos.DAL
                 {
                     if (employee != null)
                     {
+
                         // Crear un nuevo usuario y asignar el EmployeeId
                         var user = new Entities.User
                         {
                             CreatedDate = DateTime.Now,
                             Name = "Pepito.Perez",
                             Role = "Admin",
+                            
                             Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                             EmployeeId = employee.Id  // Asociar el EmployeeId con el ID del empleado
                         };
-
+                        
                         // Añadir el usuario al contexto
                         _context.Users.Add(user);
 

@@ -23,12 +23,22 @@ namespace TallerMotos.DAL.Entities
         [MaxLength(15, ErrorMessage = "El {0} tiene un máximo de {1} caracteres")]
         public string Phone { get; set; }
 
+
+        // posible solucion
+        public Guid Id { get; set; } // Asegúrate de que `Id` sea la clave primaria
+
+        // [Required]
+        public Guid UserId { get; set; }  // Clave foránea
+
+        public User? User { get; set; } // Relación uno a uno con User
+
+        /*
         //Así es como relaciono 2 tablas con EF Core: User
         [Display(Name = "User")]
         public User? User { get; set; }
         //FK
         [Display(Name = "Id User")]
-        public Guid UserId { get; set; }
+        public Guid UserId { get; set; } */
 
         //Así es como relaciono 2 tablas con EF Core: Repairs
         [Display(Name = "ServiceOrders")]

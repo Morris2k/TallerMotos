@@ -22,36 +22,6 @@ namespace TallerMotos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BillProduct", b =>
-                {
-                    b.Property<Guid>("BillsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BillsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("BillProduct");
-                });
-
-            modelBuilder.Entity("ServiceOrderServiceType", b =>
-                {
-                    b.Property<Guid>("ServiceOrdersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ServiceTypesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ServiceOrdersId", "ServiceTypesId");
-
-                    b.HasIndex("ServiceTypesId");
-
-                    b.ToTable("ServiceOrderServiceType");
-                });
-
             modelBuilder.Entity("TallerMotos.DAL.Entities.Bill", b =>
                 {
                     b.Property<Guid>("Id")
@@ -70,17 +40,26 @@ namespace TallerMotos.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProductId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<Guid>("ServiceOrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Total")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ProductId1");
 
                     b.HasIndex("ServiceOrderId")
                         .IsUnique();
@@ -94,10 +73,7 @@ namespace TallerMotos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ClientId1")
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Code")
@@ -112,7 +88,7 @@ namespace TallerMotos.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("PurchaseDate")
@@ -120,7 +96,7 @@ namespace TallerMotos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId1");
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("ProductId");
 
@@ -203,9 +179,6 @@ namespace TallerMotos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Employees");
                 });
 
@@ -220,10 +193,7 @@ namespace TallerMotos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ClientId1")
+                    b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -245,7 +215,7 @@ namespace TallerMotos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId1");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Motorcycles");
                 });
@@ -273,8 +243,8 @@ namespace TallerMotos.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -296,8 +266,8 @@ namespace TallerMotos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Code"));
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -310,7 +280,7 @@ namespace TallerMotos.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("MotorcycleId")
+                    b.Property<Guid>("MotorcyclesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("RepairDate")
@@ -321,7 +291,7 @@ namespace TallerMotos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MotorcycleId");
+                    b.HasIndex("MotorcyclesId");
 
                     b.HasIndex("ServiceOrderId");
 
@@ -332,6 +302,9 @@ namespace TallerMotos.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BillId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Code")
@@ -390,7 +363,12 @@ namespace TallerMotos.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<Guid>("ServiceOrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceOrderId");
 
                     b.ToTable("ServiceTypes");
                 });
@@ -409,6 +387,9 @@ namespace TallerMotos.Migrations
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -429,46 +410,29 @@ namespace TallerMotos.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("BillProduct", b =>
-                {
-                    b.HasOne("TallerMotos.DAL.Entities.Bill", null)
-                        .WithMany()
-                        .HasForeignKey("BillsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TallerMotos.DAL.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ServiceOrderServiceType", b =>
-                {
-                    b.HasOne("TallerMotos.DAL.Entities.ServiceOrder", null)
-                        .WithMany()
-                        .HasForeignKey("ServiceOrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TallerMotos.DAL.Entities.ServiceType", null)
-                        .WithMany()
-                        .HasForeignKey("ServiceTypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TallerMotos.DAL.Entities.Bill", b =>
                 {
+                    b.HasOne("TallerMotos.DAL.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("TallerMotos.DAL.Entities.Product", null)
+                        .WithMany("Bills")
+                        .HasForeignKey("ProductId1");
+
                     b.HasOne("TallerMotos.DAL.Entities.ServiceOrder", "ServiceOrder")
                         .WithOne("Bill")
                         .HasForeignKey("TallerMotos.DAL.Entities.Bill", "ServiceOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("ServiceOrder");
                 });
@@ -477,46 +441,33 @@ namespace TallerMotos.Migrations
                 {
                     b.HasOne("TallerMotos.DAL.Entities.Client", "Client")
                         .WithMany("Buys")
-                        .HasForeignKey("ClientId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("TallerMotos.DAL.Entities.Product", "Product")
                         .WithMany("Buys")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Client");
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TallerMotos.DAL.Entities.Employee", b =>
-                {
-                    b.HasOne("TallerMotos.DAL.Entities.User", null)
-                        .WithOne("Employee")
-                        .HasForeignKey("TallerMotos.DAL.Entities.Employee", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TallerMotos.DAL.Entities.Motorcycles", b =>
                 {
-                    b.HasOne("TallerMotos.DAL.Entities.Client", "Client")
-                        .WithMany("Motorcycles")
-                        .HasForeignKey("ClientId1")
+                    b.HasOne("TallerMotos.DAL.Entities.Client", "Clients")
+                        .WithMany("Motorcycless")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("Clients");
                 });
 
             modelBuilder.Entity("TallerMotos.DAL.Entities.Repair", b =>
                 {
                     b.HasOne("TallerMotos.DAL.Entities.Motorcycles", "Motorcycle")
                         .WithMany("Repairs")
-                        .HasForeignKey("MotorcycleId")
+                        .HasForeignKey("MotorcyclesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -542,16 +493,40 @@ namespace TallerMotos.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("TallerMotos.DAL.Entities.ServiceType", b =>
+                {
+                    b.HasOne("TallerMotos.DAL.Entities.ServiceOrder", "ServiceOrder")
+                        .WithMany("ServiceTypes")
+                        .HasForeignKey("ServiceOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceOrder");
+                });
+
+            modelBuilder.Entity("TallerMotos.DAL.Entities.User", b =>
+                {
+                    b.HasOne("TallerMotos.DAL.Entities.Employee", "Employee")
+                        .WithOne("User")
+                        .HasForeignKey("TallerMotos.DAL.Entities.User", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("TallerMotos.DAL.Entities.Client", b =>
                 {
                     b.Navigation("Buys");
 
-                    b.Navigation("Motorcycles");
+                    b.Navigation("Motorcycless");
                 });
 
             modelBuilder.Entity("TallerMotos.DAL.Entities.Employee", b =>
                 {
                     b.Navigation("ServiceOrders");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TallerMotos.DAL.Entities.Motorcycles", b =>
@@ -561,21 +536,18 @@ namespace TallerMotos.Migrations
 
             modelBuilder.Entity("TallerMotos.DAL.Entities.Product", b =>
                 {
+                    b.Navigation("Bills");
+
                     b.Navigation("Buys");
                 });
 
             modelBuilder.Entity("TallerMotos.DAL.Entities.ServiceOrder", b =>
                 {
-                    b.Navigation("Bill")
-                        .IsRequired();
+                    b.Navigation("Bill");
 
                     b.Navigation("Repairs");
-                });
 
-            modelBuilder.Entity("TallerMotos.DAL.Entities.User", b =>
-                {
-                    b.Navigation("Employee")
-                        .IsRequired();
+                    b.Navigation("ServiceTypes");
                 });
 #pragma warning restore 612, 618
         }

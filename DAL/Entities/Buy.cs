@@ -19,14 +19,14 @@ namespace TallerMotos.DAL.Entities
         public Product? Product { get; set; }
         //FK
         [Display(Name = "Id Product")]
-        public Guid ProductId { get; set; }
+        public Guid? ProductId { get; set; }
 
         //Así es como relaciono 2 tablas con EF Core: Client
         [Display(Name = "Client")]
         public Client? Client { get; set; }
         //FK
         [Display(Name = "Id Client")]
-        public Guid ClientId { get; set; }
+        public Guid? ClientId { get; set; }
 
     }
 }

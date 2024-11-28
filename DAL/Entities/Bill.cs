@@ -10,7 +10,6 @@ namespace TallerMotos.DAL.Entities
         public int Code { get; set; } // Código único, generado automáticamente
 
         [Display(Name = "Total")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public double Total { get; set; } // Campo calculado, no debe ser asignado directamente, le quitaré el private para hacer pruebas...DanielHiugita
 
         [Display(Name = "Cantidad de productos")]
@@ -30,6 +29,6 @@ namespace TallerMotos.DAL.Entities
         public Product? Product { get; set; }
         //FK
         [Display(Name = "Id Product")]
-        public Guid ProductId { get; set; }
+        public Guid? ProductId { get; set; }
     }
 }

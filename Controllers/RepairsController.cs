@@ -5,6 +5,8 @@ using TallerMotos.Domain.Services;
 
 namespace TallerMotos.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class RepairsController : Controller
     {
         private readonly iRepairServices _repairServices;
