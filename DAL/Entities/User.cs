@@ -24,8 +24,5 @@ namespace TallerMotos.DAL.Entities
         [MinLength(6, ErrorMessage = "La {0} debe tener al menos {1} caracteres")]
         public string Password { get; set; } // Contraseña del usuario (asegúrate de encriptarla)
 
-        // Relación con Empleado
-        public int EmployeeId { get; set; } // Clave foránea que referencia al empleado
-        public virtual Employee Employee { get; set; } // Propiedad de navegación
     }
 }
