@@ -3,6 +3,7 @@ using BCrypt.Net;
 using System.Data;
 using System.Numerics;
 using TallerMotos.DAL.Entities;
+using System.Diagnostics;
 
 namespace TallerMotos.DAL
 {
@@ -15,31 +16,26 @@ namespace TallerMotos.DAL
         {
             _context = context;
         }
-        //Metodo llamado SeederAsync
         public async Task SeederAsync()
         {
             await _context.Database.EnsureCreatedAsync();
 
-            //A partir de aquí vamos a ir creando métodos que me sirven para prepoblar mi BD
             await PopulateClientsAsync();
             await PopulateEmployeeAsync();
             await PopulateUserAsync();
-            //await PopulateProductAsync();
+            await PopulateProductAsync();
             await PopulateBuyAsync();
-            //await PopulateBillAsync();
-            //await PopulateServiceOrderAsync();
-            //await PopulateMotorcyclesAsync();
-            //await PopulateRepairAsync();
+            await PopulateServiceOrderAsync();
+            await PopulateBillAsync();
+            await PopulateMotorcyclesAsync();
+            await PopulateRepairAsync();
+            await PopulatedServiceTypeAsync();
 
-
-            //guardado en BD
             await _context.SaveChangesAsync();
         }
         #region Private Methos
         private async Task PopulateClientsAsync()
         {
-            //El método Any() me indica si la tabla Clients tiene al menos un registro...
-            //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
             if (!_context.Clients.Any())
             {
                 _context.Clients.Add(new Entities.Client
@@ -60,22 +56,6 @@ namespace TallerMotos.DAL
                             Model = 2000,
                             Brand = "Pulsar",
                             Milieage = 100000,
-                        },
-                        new Motorcycles
-                        {
-                            CreatedDate = DateTime.Now,
-                            Plate = "AAA01",
-                            Model = 2001,
-                            Brand = "BWS-FI",
-                            Milieage = 200000,
-                        },
-                        new Motorcycles
-                        {
-                            CreatedDate = DateTime.Now,
-                            Plate = "AAA02",
-                            Model = 2002,
-                            Brand = "XTZ-250",
-                            Milieage = 500000,
                         }
                     }
                 });
@@ -83,8 +63,6 @@ namespace TallerMotos.DAL
         }
         private async Task PopulateEmployeeAsync()
         {
-            //El método Any() me indica si la tabla Clients tiene al menos un registro...
-            //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
             if (!_context.Employees.Any())
             {
                 _context.Employees.Add(new Entities.Employee
@@ -97,56 +75,19 @@ namespace TallerMotos.DAL
                     User = new User()
                     {
                         CreatedDate = DateTime.Now,
-                        Name = "Pepito.Perez",
+                        Name = "Francisco.Perez1",
                         Role = "Admin",
                         Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                     }
                 });
             }
         }
-        private async Task PopulateUserAsync()
-        {
-            try
-            {
-                var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Cedula == 123456789);
 
-                //El método Any() me indica si la tabla Clients tiene al menos un registro...
-                //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
-                if (!_context.Users.Any())
-                {
-                    if (employee != null)
-                    {
-
-                        // Crear un nuevo usuario y asignar el EmployeeId
-                        var user = new Entities.User
-                        {
-                            CreatedDate = DateTime.Now,
-                            Name = "Pepito.Perez",
-                            Role = "Admin",
-                            
-                            Password = BCrypt.Net.BCrypt.HashPassword("123456"),
-                            EmployeeId = employee.Id  // Asociar el EmployeeId con el ID del empleado
-                        };
-                        
-                        // Añadir el usuario al contexto
-                        _context.Users.Add(user);
-
-                        employee.UserId = user.Id;
-
-                        _context.Employees.Update(employee);   //virtualizo el objeto
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-        }
         private async Task PopulateProductAsync()
         {
-            var client = await _context.Clients.FirstOrDefaultAsync(e => e.Cedula == 123456789);
-            var serviceOrder = await _context.ServiceOrders.FirstOrDefaultAsync();
-            if (_context.Products.Any())
+            Debug.WriteLine("Ejecutando PopulateProductAsync..."); // Verificar si se ejecuta
+
+            if (!_context.Products.Any())
             {
                 _context.Products.Add(new Entities.Product
                 {
@@ -154,104 +95,172 @@ namespace TallerMotos.DAL
                     Name = "Nombre del producto 1",
                     Stock = 100,
                     Price = 30000,
-                    Buys = new List<Buy>()
-                    {
-                        new Buy
-                        {
-                            ClientId = client.Id
-                        }
-                    },
-                    Bills = new List<Bill>()
-                    {
-                        new Bill
-                        {
-                            Total = 20000,
-                            Quantity = 5,
-                            ServiceOrderId = serviceOrder?.Id ?? Guid.NewGuid()
+                });
 
+                Debug.WriteLine("Producto agregado al contexto.");
+            }
+            else
+            {
+                Debug.WriteLine("Ya existen productos en la base de datos.");
+            }
+        }
+
+        private async Task PopulateServiceOrderAsync()
+        {
+            if (!_context.ServiceOrders.Any())
+            {
+                _context.ServiceOrders.Add(new Entities.ServiceOrder
+                {
+                    CreatedDate = DateTime.Now,
+                    Description = "Prueba de guardado del ServiceOrder",
+                    EntryDate = DateTime.Now,
+                    ExitDate = DateTime.Now.AddDays(5), 
+                    Employee = new Employee() 
+                    {
+                        CreatedDate = DateTime.Now,
+                        Cedula = 11223344,
+                        FirstName = "Jose",
+                        LastName = "Martinez",
+                        Phone = "3103103234",
+                        User = new User()
+                        {
+                            CreatedDate = DateTime.Now,
+                            Name = "Jose.Martinez1",
+                            Role = "Admin",
+                            Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                         }
+                    }
+
+                });
+
+                await _context.SaveChangesAsync();
+                Debug.WriteLine("Orden de servicio creada exitosamente.");
+            }
+        }
+
+        private async Task PopulateUserAsync()
+        {
+            if (!_context.Users.Any())
+            {
+                _context.Users.Add(new Entities.User
+                {
+                    CreatedDate = DateTime.Now,
+                    Name = "santiago.morales1",
+                    Role = "Admin",
+                    Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                    Employee = new Employee()
+                    {
+                        CreatedDate = DateTime.Now,
+                        Cedula = 1017247226,
+                        FirstName = "santiago",
+                        LastName = "morales",
+                        Phone = "3103103234",
                     }
                 });
             }
         }
+
         private async Task PopulateBuyAsync()
         {
-            var client = await _context.Clients.FirstOrDefaultAsync();
-            var product = await _context.Products.FirstOrDefaultAsync();
-            if (_context.Buys.Any())
+            if (!_context.Buys.Any())
             {
-                _context.Buys.Add(new Buy
+                _context.Buys.Add(new Entities.Buy
                 {
                     CreatedDate = DateTime.Now,
-                    ClientId = client?.Id ?? Guid.NewGuid(),
-                    ProductId = product?.Id ?? Guid.NewGuid()
+                    Product = new Product()
+                    {
+                        CreatedDate = DateTime.Now,
+                        Name = "Nombre del producto 2",
+                        Stock = 80,
+                        Price = 35000,
+                    },
+                    Client = new Client()
+                    {
+                        CreatedDate = DateTime.Now,
+                        Cedula = 123456789,
+                        FirstName = "cristian",
+                        LastName = "camilo",
+                        Phone = "3108575645",
+                        Helmet = true,
+                        Papers = true,
+                    }
                 });
 
             }
 
         }
-        private async Task PopulateBillAsync()
+
+       private async Task PopulateBillAsync()
         {
-            var product = await _context.Products.FirstOrDefaultAsync();
-            var serviceOrder = await _context.ServiceOrders.FirstOrDefaultAsync();
-            if (_context.Bills.Any())
+            if (!_context.Bills.Any())
             {
-                _context.Bills.Add(new Bill
+                _context.Bills.Add(new Entities.Bill
                 {
                     CreatedDate = DateTime.Now,
                     Total = 20000,
                     Quantity = 5,
-                    ProductId = product?.Id ?? Guid.NewGuid(),
-                    ServiceOrderId = serviceOrder?.Id ?? Guid.NewGuid()
-
+                    Product = new Product()
+                    {
+                        CreatedDate = DateTime.Now,
+                        Name = "Nombre del producto 3",
+                        Stock = 10,
+                        Price = 870000,
+                    },
+                    ServiceOrder = new ServiceOrder()
+                    {
+                        CreatedDate = DateTime.Now,
+                        Description = "Reparacion motor",
+                        EntryDate = DateTime.Now,
+                        ExitDate = DateTime.Now.AddDays(5),
+                        Employee = new Employee()
+                        {
+                            CreatedDate = DateTime.Now,
+                            Cedula = 1019876553,
+                            FirstName = "andres",
+                            LastName = "velasquez",
+                            Phone = "3103103234",
+                            User = new User()
+                            {
+                                CreatedDate = DateTime.Now,
+                                Name = "andres.velasquez",
+                                Role = "Admin",
+                                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                            }
+                        }
+                    }
                 });
 
             }
 
         }
+
         private async Task PopulateMotorcyclesAsync()
         {
-            var client = await _context.Clients.FirstOrDefaultAsync(e => e.Cedula == 123456789);
-
-            //El método Any() me indica si la tabla Clients tiene al menos un registro...
-            //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
-            if (_context.Motorcycles.Any())
+            if (!_context.Motorcycles.Any())
             {
                 _context.Motorcycles.Add(new Entities.Motorcycles
                 {
                     CreatedDate = DateTime.Now,
-                    Plate = "AAA03",
-                    Model = 2003,
-                    Brand = "Hero",
+                    Plate = "BBB111",
+                    Model = 2020,
+                    Brand = "Yamaha",
                     Milieage = 0,
-                    ClientId = client.Id,
-                    Repairs = new List<Repair>()
+                    Clients = new Client()
                     {
-                        new Repair
-                        {
-                            CreatedDate = DateTime.Now,
-                            Detail = "Prueba de guardado del Seeder",
-                            Cost = 100000.00,
-                            RepairDate = DateTime.Now,
-                            ServiceOrderId = Guid.Empty
-                        },
-                        new Repair
-                        {
-                            CreatedDate = DateTime.Now,
-                            Detail = "Prueba de guardado del Seeder",
-                            Cost = 230000.00,
-                            RepairDate = DateTime.Now,
-                            ServiceOrderId = Guid.Empty
-                        }
+                        CreatedDate = DateTime.Now,
+                        Cedula = 11224455,
+                        FirstName = "camilo",
+                        LastName = "osorio",
+                        Phone = "3108575645",
+                        Helmet = true,
+                        Papers = true,
                     }
                 });
             }
         }
+
         private async Task PopulateRepairAsync()
         {
-            var motorcycles = await _context.Motorcycles.FirstOrDefaultAsync(e => e.Plate == "AAA00");
-            //El método Any() me indica si la tabla Clients tiene al menos un registro...
-            //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
             if (!_context.Repairs.Any())
             {
                 _context.Repairs.Add(new Entities.Repair
@@ -260,79 +269,82 @@ namespace TallerMotos.DAL
                     Detail = "Prueba de guardado del Seeder",
                     Cost = 100000.00,
                     RepairDate = DateTime.Now,
-                    MotorcyclesId = motorcycles.Id,
-                    ServiceOrderId = Guid.Empty
-                });
-            }
-        }
-        /*private async Task PopulateBillAsync()
-        {
-            var serviceOrder = await _context.ServiceOrders.FirstOrDefaultAsync(so => so.Id == 000);
-            //El método Any() me indica si la tabla Clients tiene al menos un registro...
-            //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
-            if (!_context.Bills.Any())
-            {
-                _context.Bills.Add(new Entities.Bill
-                {
-                    CreatedDate = DateTime.Now,
-                    Total = 30000,
-                    Quantity = 3,
-                    LastName = "Perez",
-                    Phone = "3103103102",
-                });
-            }
-        }
-        */
-        private async Task PopulateServiceOrderAsync()
-        {
-            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Cedula == 123456789);
-            var motorcycles = await _context.Motorcycles.FirstOrDefaultAsync(e => e.Plate == "AAA00");
-            var bill = await _context.Bills.FirstOrDefaultAsync();
-
-            //El método Any() me indica si la tabla Clients tiene al menos un registro...
-            //El método Any() negado (!) me indica que no hay absolutamente nada en la tabla Clients...
-            if (!_context.ServiceOrders.Any())
-            {
-                _context.ServiceOrders.Add(new Entities.ServiceOrder
-                {
-                    CreatedDate = DateTime.Now,
-                    Description = "Prueba de guardado del ServiceOrder",
-                    EntryDate = DateTime.Now,
-                    ExitDate = DateTime.Now,
-                    BillId = bill?.Id ?? Guid.NewGuid(), // Usa un ID válido o un GUID nuevo para pruebas
-                    EmployeeId = employee?.Id ?? Guid.NewGuid(),
-                    Repairs = new List<Repair>()
+                    Motorcycle = new Motorcycles()
                     {
-                        new Repair
+                        CreatedDate = DateTime.Now,
+                        Plate = "CCC444",
+                        Model = 2022,
+                        Brand = "Suzuki",
+                        Milieage = 0,
+                        Clients = new Client()
                         {
                             CreatedDate = DateTime.Now,
-                            Detail = "Prueba de guardado del Seeder para el repair",
-                            Cost = 100000.00,
-                            RepairDate = DateTime.Now,
-                            MotorcyclesId = motorcycles?.Id ?? Guid.NewGuid()
+                            Cedula = 22222222,
+                            FirstName = "jhon",
+                            LastName = "Alvarez",
+                            Phone = "3140096871",
+                            Helmet = true,
+                            Papers = true,
                         }
                     },
-                    ServiceTypes = new List<ServiceType>()
+                    ServiceOrder = new ServiceOrder()
                     {
-                        new ServiceType
+                        CreatedDate = DateTime.Now,
+                        Description = "Cambio filtro",
+                        EntryDate = DateTime.Now,
+                        ExitDate = DateTime.Now.AddDays(5),
+                        Employee = new Employee()
                         {
-                            Name = "Nombre del tipo de servicio1"
-                        },
-                        new ServiceType
-                        {
-                            Name = "Nombre del tipo de servicio2"
-                        },
-                        new ServiceType
-                        {
-                            Name = "Nombre del tipo de servicio3"
+                            CreatedDate = DateTime.Now,
+                            Cedula = 333456765,
+                            FirstName = "camilo",
+                            LastName = "ocampo",
+                            Phone = "3109874455",
+                            User = new User()
+                            {
+                                CreatedDate = DateTime.Now,
+                                Name = "camilo.ocampo",
+                                Role = "Admin",
+                                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                            }
                         }
                     }
                 });
             }
         }
 
-
-
+        private async Task PopulatedServiceTypeAsync()
+        {
+            if (!_context.ServiceTypes.Any())
+            {
+                _context.ServiceTypes.Add(new Entities.ServiceType
+                {
+                    Name = "Motor",
+                    ServiceOrder = new ServiceOrder()
+                    {
+                        CreatedDate = DateTime.Now,
+                        Description = "Cambio llantas",
+                        EntryDate = DateTime.Now,
+                        ExitDate = DateTime.Now.AddDays(5),
+                        Employee = new Employee()
+                        {
+                            CreatedDate = DateTime.Now,
+                            Cedula = 1017885774,
+                            FirstName = "mateo",
+                            LastName = "morales",
+                            Phone = "3109688877",
+                            User = new User()
+                            {
+                                CreatedDate = DateTime.Now,
+                                Name = "mateo.morales",
+                                Role = "Admin",
+                                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                            }
+                        }
+                    }
+                });
+            }
+        }
         #endregion
     }
 }
