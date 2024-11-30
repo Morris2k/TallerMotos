@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace TallerMotos.DAL.Entities
 {
@@ -27,13 +28,16 @@ namespace TallerMotos.DAL.Entities
         //Así es como relaciono 2 tablas con EF Core: Client
         [Display(Name = "Client")]
         public Client? Clients { get; set; }
+
+       
         //FK
         [Display(Name = "Id Client")]
         public Guid ClientId { get; set; }
 
+        [JsonIgnore]
         //Así es como relaciono 2 tablas con EF Core: Repair
         [Display(Name = "Reparaciones")]
         public ICollection<Repair>? Repairs { get; set; }
-r
+
     }
 }

@@ -27,7 +27,7 @@ namespace TallerMotos.DAL.Entities
         public Bill? Bill { get; set; }
         //FK
         [Display(Name = "Id Bill")]
-        public Guid BillId { get; set; }
+        public Guid? BillId { get; set; }
 
         //Así es como relaciono 2 tablas con EF Core: Employee
         [Display(Name = "Employee")]

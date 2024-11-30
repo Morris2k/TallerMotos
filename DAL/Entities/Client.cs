@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace TallerMotos.DAL.Entities
 {
@@ -31,6 +32,7 @@ namespace TallerMotos.DAL.Entities
         [Required(ErrorMessage = "Los {0} son obligatorios")]
         public bool Papers { get; set; } // True si deja los papeles, False si no
 
+        [JsonIgnore]
         //Así es como relaciono 2 tablas con EF Core: buys
         [Display(Name = "compras")]
         public ICollection<Buy>? Buys { get; set; }

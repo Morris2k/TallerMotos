@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using TallerMotos.DAL;
 using TallerMotos.Domain.Interfaces;
 using TallerMotos.Domain.Services;
@@ -47,6 +48,7 @@ void SeederData()
         service.SeederAsync().Wait();
     }
 }
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
